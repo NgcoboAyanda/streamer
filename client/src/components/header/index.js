@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+import OAuth from '../OAuth';
+
 const Header = ()=>{
     return(
         <div className="ui secondary pointing menu">
@@ -14,6 +16,9 @@ const Header = ()=>{
                 <Link to="/streams/new" className="item">
                     Create streams
                 </Link>
+                <OAuth className="item">
+                    
+                </OAuth>
             </div>
         </div>
     )

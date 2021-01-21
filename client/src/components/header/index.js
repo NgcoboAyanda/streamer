@@ -16,9 +16,7 @@ const Header = ()=>{
                 <Link to="/streams/new" className="item">
                     Create streams
                 </Link>
-                <OAuth className="item">
-                    
-                </OAuth>
+                <OAuth></OAuth>
             </div>
         </div>
     )

@@ -32,7 +32,7 @@ class OAuth extends Component {
     //conditional render method
     renderAuthBtn=()=>{
         if(this.state.isSignedIn === null){
-            return <div>...</div>
+            return null;
         }
         else if(this.state.isSignedIn){
             return ( 
@@ -41,7 +41,7 @@ class OAuth extends Component {
                         Logout
                     </button>
                 </div>
-            )
+            );
         }
         else if(this.state.isSignedIn === false){
             return (
@@ -50,7 +50,7 @@ class OAuth extends Component {
                         Login
                     </button>
                 </div>
-            )
+            );
         }
     }
 

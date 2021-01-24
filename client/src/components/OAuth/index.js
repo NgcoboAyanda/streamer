@@ -1,4 +1,9 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+
+//action creators
+import { signIn, signOut } from '../../actions';
+
 
 class OAuth extends Component {
     state = {isSignedIn:null};
@@ -17,7 +22,6 @@ class OAuth extends Component {
                 //storing auth instance object in the component so that we can access it outside this method
                 this.auth = window.gapi.auth2.getAuthInstance();
                 this.setState( { isSignedIn:this.auth.isSignedIn.get()} );
-                console.log(this.state.isSignedIn);
                 //method to listen for changes to the authorization state
                     //it takes a callback that will be executed when there is a change
                 this.auth.isSignedIn.listen(val=>this.onAuthChange());
@@ -28,9 +32,13 @@ class OAuth extends Component {
     };
 
     //what happens when sign in state changes
-    onAuthChange=()=>{
-        //updating state to show new sign in state
-        this.setState(  { isSignedIn: window.gapi.auth2.getAuthInstance().isSignedIn.get() }  );
+    onAuthChange= (isSignedIn)=>{
+        if(isSignedIn){
+            this.props.signIn();
+        }
+        else {
+            this.props.signOut();
+        }
     }
 
     //conditional render method
@@ -75,5 +83,15 @@ class OAuth extends Component {
         )
     }
 }
+//state
+const mapStateToProps = (state)=>{
+    
+}
 
-export default OAuth;
+//dispatch
+const mapDispatchToProps = {
+    signIn,
+    signOut
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(OAuth);

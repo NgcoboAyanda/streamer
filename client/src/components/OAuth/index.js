@@ -6,7 +6,6 @@ import { signIn, signOut } from '../../actions';
 
 
 class OAuth extends Component {
-    state = {isSignedIn:null};
 
     //what happens when the app initially loads up
     componentDidMount=()=>{
@@ -21,10 +20,11 @@ class OAuth extends Component {
             ).then( ()=> {
                 //storing auth instance object in the component so that we can access it outside this method
                 this.auth = window.gapi.auth2.getAuthInstance();
-                this.setState( { isSignedIn:this.auth.isSignedIn.get()} );
+                this.onAuthChange(this.auth.isSignedIn.get() );
                 //method to listen for changes to the authorization state
                     //it takes a callback that will be executed when there is a change
-                this.auth.isSignedIn.listen(val=>this.onAuthChange());
+                    //bool is the boolean returned by this.auth.isSignedIn.listen (which I then passed to onAuthChange)
+                this.auth.isSignedIn.listen(bool=>this.onAuthChange(bool) );
                 } 
             );
         });
@@ -43,10 +43,10 @@ class OAuth extends Component {
 
     //conditional render method
     renderAuthBtn=()=>{
-        if(this.state.isSignedIn === null){
+        if(this.props.isSignedIn === null){
             return null;
         }
-        else if(this.state.isSignedIn){
+        else if(this.props.isSignedIn){
             return ( 
                 <button className="ui red google button" onClick={e=> this.sign('Out')}>
                     <i className="google icon"/>
@@ -54,7 +54,7 @@ class OAuth extends Component {
                 </button>
             );
         }
-        else if(this.state.isSignedIn === false){
+        else if(this.props.isSignedIn === false){
             return (
                     <button className="ui red google button" onClick={e=> this.sign('In')}>
                         <i className="google icon"/>
@@ -85,7 +85,9 @@ class OAuth extends Component {
 }
 //state
 const mapStateToProps = (state)=>{
-    
+    return {
+        isSignedIn:state.auth.isSignedIn
+    }
 }
 
 //dispatch

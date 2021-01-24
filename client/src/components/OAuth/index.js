@@ -5,13 +5,16 @@ class OAuth extends Component {
 
     //what happens when the app initially loads up
     componentDidMount=()=>{
+        //adding conditional so that app can load up without an error msg even when the gapi script doesnt load
+        if(window.gapi){
         window.gapi.load("client:auth2",()=>{
             window.gapi.client.init( {
                 clientId:'274619743138-l8b82adcnp25apt7ukavllae6bki34ji.apps.googleusercontent.com',
                 scope: 'email'
             }
-            //The init() method returns a promise so we call .then to put a callback that will execute after ini() 
+            //The init() method returns a promise so we call .then to put a callback that will execute after init() 
             ).then( ()=> {
+                //storing auth instance object in the component so that we can access it outside this method
                 this.auth = window.gapi.auth2.getAuthInstance();
                 this.setState( { isSignedIn:this.auth.isSignedIn.get()} );
                 console.log(this.state.isSignedIn);
@@ -21,9 +24,10 @@ class OAuth extends Component {
                 } 
             );
         });
+      }
     };
 
-    //what happens when authorization state changes
+    //what happens when sign in state changes
     onAuthChange=()=>{
         //updating state to show new sign in state
         this.setState(  { isSignedIn: window.gapi.auth2.getAuthInstance().isSignedIn.get() }  );
@@ -36,35 +40,31 @@ class OAuth extends Component {
         }
         else if(this.state.isSignedIn){
             return ( 
-                <div>
-                    <button onClick={e=> this.authorize('signOut')}>
-                        Logout
-                    </button>
-                </div>
+                <button className="ui red google button" onClick={e=> this.sign('Out')}>
+                    <i className="google icon"/>
+                    Sign out
+                </button>
             );
         }
         else if(this.state.isSignedIn === false){
             return (
-                <div>
-                    <button onClick={e=> this.authorize('signIn')}>
-                        Login
+                    <button className="ui red google button" onClick={e=> this.sign('In')}>
+                        <i className="google icon"/>
+                        Sign in with Google
                     </button>
-                </div>
             );
         }
     }
 
-    //authorize method is for signing in and signing out
-    authorize=(param)=>{
-        const auth = window.gapi.auth2.getAuthInstance();
-        if(param === 'signIn'){
-            auth.signIn();
+    //sign method is for signing in and signing out
+    //takes one parameter, which can either be signIn or signOut
+    sign=(param)=>{
+        if(param === 'In'){
+            this.auth.signIn();
         }
-        if(param === 'signOut'){
-            auth.signOut();
+        if(param === 'Out'){
+            this.auth.signOut();
         }
-        //listening for changes to signed in state
-        auth.isSignedIn.listen(val=>this.onAuthChange());
     }
 
     render(){

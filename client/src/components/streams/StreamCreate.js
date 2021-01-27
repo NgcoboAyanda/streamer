@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 //redux form methods
 import { Field, reduxForm } from 'redux-form';
+//redux
+import { connect } from 'react-redux';
+import { createStream } from "../../actions";
 
 class StreamCreate extends Component {
 
@@ -20,7 +23,7 @@ class StreamCreate extends Component {
     /* When onFormSubmit is called, it will be passed an object(formValues) which contains all values in
     our form */
     onFormSubmit=(formValues)=>{
-        console.log(formValues);
+        this.props.createStream(formValues);//firing off createStream action creator
     }
 
     //renderFormError is called with meta object so we're destructuring error and touched from that object
@@ -62,7 +65,14 @@ const validate = formValues => {
     return errors; //returning error object. If it's blank then the form will be submitted
 }
 
-export default reduxForm({
+const formWrapped = reduxForm({
     form: 'streamCreate',
     validate
 })(StreamCreate);
+
+
+const mapDispatchToProps = {
+    createStream
+};
+
+export default connect(null, mapDispatchToProps)(formWrapped);

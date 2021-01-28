@@ -1,9 +1,22 @@
 {
   "streams": [
     {
-      "title": "My stream",
-      "description": "this is a stream yaaayy",
+      "title": "Stream 1",
+      "description": "this is the first stream",
+      "userId": "115086768050840647201",
       "id": 1
+    },
+    {
+      "title": "Stream 2",
+      "description": "this is another stream nigga",
+      "userId": "115086768050840647201",
+      "id": 2
+    },
+    {
+      "title": "Stream 3",
+      "description": "I feel like Michael Jackson walking in the Calabases",
+      "userId": "115086768050840647201",
+      "id": 3
     }
   ]
 }

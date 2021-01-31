@@ -1,44 +1,4 @@
 {
   "streams": [
-    {
-      "title": "Stream 1",
-      "description": "this is the first stream in my ass",
-      "id": 1
-    },
-    {
-      "title": "Stream 3",
-      "description": "I feel like Michael Jackson walking in the Calabases like a G",
-      "userId": "115086768050840647201",
-      "id": 3
-    },
-    {
-      "title": "Anada stream",
-      "description": "this another steam for dem boyz in the motherfuckerrr",
-      "id": 4
-    },
-    {
-      "title": "Guda Guda",
-      "description": "Skiraaaa pah pah pah pah, skiti ki boom boom",
-      "userId": "115086768050840647206",
-      "id": 5
-    },
-    {
-      "title": "Smokepurp",
-      "description": "I wanted an audi but they bought",
-      "userId": "115086768050840647209",
-      "id": 6
-    },
-    {
-      "title": "Big Shaq the one and only",
-      "description": "I said man's not cold, skirraaaa pah pah pah pah",
-      "userId": "115086768050840647201",
-      "id": 7
-    },
-    {
-      "title": "Da popo",
-      "description": "We out here playing chess or some shit with the blxickies. Niggas really spinnig and shit",
-      "userId": "115086768050840647201",
-      "id": 8
-    }
   ]
 }

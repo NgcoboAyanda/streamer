@@ -10,16 +10,13 @@ class StreamList extends React.Component {
     }
 
     //conditionally rendering edit and delete stream buttons
-    renderAdmin({userId}) {//renderAdmin is called with object that contains userId
+    renderAdmin(stream) {//renderAdmin is called with object that contains userId
+        const {userId,id} = stream;//getting userId and streamId
         if (userId === this.props.currentUserId){
             return(
                 <div className="right floated content">
-                    <button className="ui button primary">
-                        EDIT
-                    </button>
-                    <button className="ui button negative">
-                        DELETE
-                    </button>
+                    <Link to={`/streams/edit/${id}`} className="ui button primary">Edit</Link>
+                    <Link to={`/streams/delete/${id}`} className="ui button negative">Delete</Link>
                 </div>
             )
         }

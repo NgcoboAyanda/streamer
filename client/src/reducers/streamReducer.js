@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 //Streams reducer
-export default (state = {}, action)=>{
+const streamsReducer = (state = {}, action)=>{
     switch(action.type){
         case 'FETCH_STREAMS':
             return { ...state, ..._.mapKeys(action.payload, 'id') }//mapKeys is a lodash method
@@ -16,4 +16,6 @@ export default (state = {}, action)=>{
         default:
             return state;
     }
-}
+};
+
+export default streamsReducer;

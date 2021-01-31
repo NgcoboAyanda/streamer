@@ -1,4 +1,5 @@
-import streams from '../apis/streams';
+import streams from '../apis/streams'; //axios config
+import history from '../history';//browser object
 
 export const signIn = (userId)=>{
     return {
@@ -24,7 +25,7 @@ export const createStream = (formValues)=> async (dispatch,getState)=>{
         }
     )
     // do some programmatic navigation to navigate the user to the root route after creating a stream
-    
+    history.push('/');
 }
 
 export const fetchStreams = () => async dispatch=>{
@@ -50,7 +51,7 @@ export const fetchStream = (id) => async dispatch=>{
 }
 
 export const editStream = (id,formValues)=> async dispatch => {
-    const response = await streams.put(`/streams/${id}`, formValues);
+    const response = await streams.patch(`/streams/${id}`, formValues);
 
     dispatch(
         {
@@ -58,6 +59,7 @@ export const editStream = (id,formValues)=> async dispatch => {
             payload: response.data
         }
     )
+    history.push('/');
 }
 
 export const deleteStream = (id)=> async dispatch=> {

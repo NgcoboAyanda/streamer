@@ -6,13 +6,13 @@ import Modal from '../Modal';
 import history from '../../history';
 
 class StreamDelete extends React.Component{
-    id = this.props.match.params.streamId;
+    streamId = this.props.match.params.streamId;
     componentDidMount(){
-        this.props.fetchStream(this.id);
+        this.props.fetchStream(this.streamId);
     }
 
     removeStream = ()=>{
-        this.props.deleteStream(this.id);
+        this.props.deleteStream(this.streamId);
     }
 
     dismissModal = ()=>{
@@ -31,24 +31,23 @@ class StreamDelete extends React.Component{
         </>
     )
 
-    renderStreamTitle = (props)=>{
-        const {stream} = props;
-        let title;
-        if(stream){
-            title = ` "${stream.title}" `
-        }
-        else{
-            title = ''
-        }
-        return title;
-    }
 
     render() {
+        const {stream} = this.props;
+
+        if(!stream){
+            return(
+                <div>
+                    loading...
+                </div>
+            )
+        }
+
             return(
                 <div>
                     <Modal 
                         title={'Delete Stream'}
-                        confirmMsg = {`Are you sure you want to delete ${this.renderStreamTitle(this.props)} stream?`}
+                        confirmMsg = {`Are you sure you want to delete ${stream.title} stream?`}
                         actions = {this.modalActions}
                         onDismiss = {this.dismissModal}
                     />
